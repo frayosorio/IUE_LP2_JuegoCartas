@@ -1,4 +1,7 @@
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -6,6 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class FrmJuego extends JFrame {
+
+    private JPanel pnlJugador1, pnlJugador2;
+    private Jugador jugador1, jugador2;
 
     public FrmJuego() {
         setTitle("Juguemos al apuntado");
@@ -21,10 +27,12 @@ public class FrmJuego extends JFrame {
         btnVerificar.setBounds(120, 10, 100, 25);
         getContentPane().add(btnVerificar);
 
-        JPanel pnlJugador1 = new JPanel();
+        pnlJugador1 = new JPanel();
+        pnlJugador1.setLayout(null);
         pnlJugador1.setBackground(new Color(150, 255, 50));
 
-        JPanel pnlJugador2 = new JPanel();
+        pnlJugador2 = new JPanel();
+        pnlJugador2.setLayout(null);
         pnlJugador2.setBackground(new Color(0, 255, 255));
 
         JTabbedPane tpJugadores = new JTabbedPane();
@@ -33,6 +41,43 @@ public class FrmJuego extends JFrame {
 
         tpJugadores.setBounds(10, 40, 550, 200);
         getContentPane().add(tpJugadores);
+
+        // agregar los eventos
+        btnRepartir.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                repartir();
+            }
+
+        });
+
+        btnVerificar.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                verificar();
+            }
+
+        });
+
+        // instancias de los jugadores
+        jugador1 = new Jugador();
+        jugador2 = new Jugador();
+    }
+
+    private void repartir() {
+        // repartir las cartas
+        jugador1.repartir();
+        jugador2.repartir();
+
+        // mostrar las cartas
+        jugador1.mostrar(pnlJugador1);
+        jugador2.mostrar(pnlJugador2);
+    }
+
+    private void verificar() {
+
     }
 
 }
